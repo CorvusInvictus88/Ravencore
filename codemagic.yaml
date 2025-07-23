@@ -1,0 +1,19 @@
+workflows:
+  android-release:
+    name: RavenCore Android Build
+    environment:
+      android_signing:
+        - ravencore_keystore
+      vars:
+        PACKAGE_NAME: "com.ravencore.app"
+        CM_KEYSTORE_PATH: "$CM_KEYSTORE"
+        CM_KEYSTORE_PASSWORD: $CM_KEYSTORE_PASSWORD
+        CM_KEY_ALIAS_PASSWORD: $CM_KEY_ALIAS_PASSWORD
+        CM_KEY_ALIAS_USERNAME: $CM_KEY_ALIAS_USERNAME
+    scripts:
+      - name: Build Android release
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
